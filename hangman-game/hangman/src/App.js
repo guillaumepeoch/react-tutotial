@@ -6,42 +6,73 @@ import './App.css';
 class App extends Component {
   constructor(){
     super();
-    const wordString = RandomWords();
-    const word = wordString.split("");
+    let wordString = RandomWords();
+    let word = wordString.split("");
     const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
     'p','q','r','s','t','u','v','w','x','y','z'];
-    alert(wordString);
     this.state = {
       word:word,
-      inputWord:[],
-      letters:letters
+      inputLetters:[],
+      inputCorrectLetters:[],
+      letters:letters,
+      victories:0
     }
+    alert(word);
+  }
+
+  reload () {
+    let wordString = RandomWords();
+    let word = wordString.split("");
+    this.setState({
+      word:word,
+      inputLetters:[],
+      inputCorrectLetters:[]
+    });
   }
 
   keyPressed(letterPressed){
-    //const letterInInputWord = this.state.inputWord.indexOf(letterPressed)>-1;
+    const inputLetters = this.state.inputLetters;
+    inputLetters.push(letterPressed);
+
     const letterInWord = this.state.word.indexOf(letterPressed)>-1;
-    const inputWord = this.state.inputWord;
-    letterInWord ? inputWord.push(letterPressed) : console.log("No Match!!");
-    this.setState({inputWord:inputWord});
+    const inputCorrectLetters = this.state.inputCorrectLetters;
+    letterInWord ? inputCorrectLetters.push(letterPressed) : console.log("No Match!!");
+
+    if(inputCorrectLetters.length === this.state.word.length){
+      alert("victory");
+      let victory = this.state.victories;
+      victory++
+      this.setState({victories:victory});
+      this.reload();
+    } else {
+      this.setState({
+        inputLetters:inputLetters,
+        inputCorrectLetters:inputCorrectLetters
+      });
+    }
   }
 
   render() {
-    const { word, inputWord, letters } = this.state;
+    const { word, inputLetters, letters, victories } = this.state;
     return (
       <div className="App">
         <header>
           <h1>Hangman Game</h1>
+          <div className="panel">
+            <div className="victories">Victories: {victories}</div>
+            <div className="score">Score: {inputLetters.length}</div>
+            Refresh: <span className="reload" onClick={()=>this.reload()}>&#x21bb;</span>
+          </div>
         </header>
         <div className="word-to-guess">
           {word.map(( letter, index )=>(
             <div key={index} className="letter">
-              { inputWord.indexOf(letter) > -1 && inputWord.length ? letter : "_" }
+              { inputLetters.indexOf(letter) > -1 && inputLetters.length ? letter : "_" }
             </div>
           ))}
         </div>
         { letters.map(( letter, index )=>(
-          <div key={index} className="keybord" onClick={()=>this.keyPressed(letter)}>{letter.toUpperCase()}</div>
+          inputLetters.indexOf(letter) > -1 ? <button key={index} className="keybord-pressed" disabled="disabled">{letter.toUpperCase()}</button> : <div key={index} className="keybord" onClick={()=>this.keyPressed(letter)}>{letter.toUpperCase()}</div>
         ))}
       </div>
     );

@@ -1,6 +1,6 @@
-* {
-  margin:0px;
-  padding:0px;
+*{
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -27,4 +27,14 @@ h1 {
   border: 2px solid SeaGreen;
   margin: 10px;
   text-align: center;
+  padding-top: 5px;
+}
+
+.panel {
+  border: 3px solid SeaGreen;
+  display:inline-block;
+  position: fixed;
+  top: 2px;
+  left: 2px;
+  padding: 3px 5px;
 }
