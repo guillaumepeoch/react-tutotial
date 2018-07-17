@@ -30,6 +30,18 @@ h1 {
   padding-top: 5px;
 }
 
+.keybord-pressed {
+  pointer-events: none;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  border: 2px solid SeaGreen;
+  margin: 10px;
+  text-align: center;
+  background-color: SeaGreen;
+  padding-top: 5px;
+}
+
 .panel {
   border: 3px solid SeaGreen;
   display:inline-block;

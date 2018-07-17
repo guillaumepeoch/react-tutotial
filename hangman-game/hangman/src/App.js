@@ -72,7 +72,7 @@ class App extends Component {
           ))}
         </div>
         { letters.map(( letter, index )=>(
-          inputLetters.indexOf(letter) > -1 ? <button key={index} className="keybord-pressed" disabled="disabled">{letter.toUpperCase()}</button> : <div key={index} className="keybord" onClick={()=>this.keyPressed(letter)}>{letter.toUpperCase()}</div>
+          inputLetters.indexOf(letter) > -1 ? <div key={index} className="keybord-pressed">{letter.toUpperCase()}</div> : <div key={index} className="keybord" onClick={()=>this.keyPressed(letter)}>{letter.toUpperCase()}</div>
         ))}
       </div>
     );
