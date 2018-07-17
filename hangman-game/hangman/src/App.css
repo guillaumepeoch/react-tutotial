@@ -9,3 +9,22 @@ h1 {
   color:SeaGreen;
   margin-top: 15px;
 }
+
+.letter {
+  display: inline-block;
+  font-size: 100px;
+  margin-right: 10px;
+}
+
+.word-to-guess {
+  text-align: center;
+}
+
+.keybord {
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  border: 2px solid SeaGreen;
+  margin: 10px;
+  text-align: center;
+}
