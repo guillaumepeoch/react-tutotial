@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import RandomWords from 'random-words'
+import Keyboard from './Keyboard'
+import Word from './Word'
+import Panel from './Panel'
 
 import './App.css';
 
@@ -8,19 +11,15 @@ class App extends Component {
     super();
     let wordString = RandomWords();
     let word = wordString.split("");
-    const letters = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o',
-    'p','q','r','s','t','u','v','w','x','y','z'];
     this.state = {
       word:word,
       inputLetters:[],
       inputCorrectLetters:[],
-      letters:letters,
       victories:0
     }
-    alert(word);
   }
 
-  reload () {
+  reload = () => {
     let wordString = RandomWords();
     let word = wordString.split("");
     this.setState({
@@ -30,50 +29,53 @@ class App extends Component {
     });
   }
 
-  keyPressed(letterPressed){
+  keyPressed = (inputLetter) => {
+    // Get all input letters and add the one which just got pressed
     const inputLetters = this.state.inputLetters;
-    inputLetters.push(letterPressed);
+    inputLetters.push(inputLetter);
 
-    const letterInWord = this.state.word.indexOf(letterPressed)>-1;
+    // If the letter is in the word add it to the inputCorrectLetter
+    const letterInWord = this.state.word.indexOf(inputLetter)>-1;
     const inputCorrectLetters = this.state.inputCorrectLetters;
-    letterInWord ? inputCorrectLetters.push(letterPressed) : console.log("No Match!!");
+    letterInWord ? inputCorrectLetters.push(inputLetter) : console.log("No Match!!");
 
-    if(inputCorrectLetters.length === this.state.word.length){
+    // If all the letter of the word got discovered
+    const wordLength = this.state.word.length;
+    if(inputCorrectLetters.length === wordLength){
       alert("victory");
-      let victory = this.state.victories;
-      victory++
-      this.setState({victories:victory});
+      let victories = this.state.victories;
+      victories++
+      this.setState({victories});
       this.reload();
+    // If we still have more to discover
     } else {
       this.setState({
-        inputLetters:inputLetters,
-        inputCorrectLetters:inputCorrectLetters
+        inputLetters,
+        inputCorrectLetters
       });
     }
   }
 
   render() {
-    const { word, inputLetters, letters, victories } = this.state;
+    const { inputLetters, victories } = this.state;
     return (
       <div className="App">
         <header>
           <h1>Hangman Game</h1>
-          <div className="panel">
-            <div className="victories">Victories: {victories}</div>
-            <div className="score">Score: {inputLetters.length}</div>
-            Refresh: <span className="reload" onClick={()=>this.reload()}>&#x21bb;</span>
-          </div>
+          <Panel
+            victories={victories}
+            score={inputLetters.length}
+            onClick={this.reload}
+          />
         </header>
-        <div className="word-to-guess">
-          {word.map(( letter, index )=>(
-            <div key={index} className="letter">
-              { inputLetters.indexOf(letter) > -1 && inputLetters.length ? letter : "_" }
-            </div>
-          ))}
-        </div>
-        { letters.map(( letter, index )=>(
-          inputLetters.indexOf(letter) > -1 ? <div key={index} className="keybord-pressed">{letter.toUpperCase()}</div> : <div key={index} className="keybord" onClick={()=>this.keyPressed(letter)}>{letter.toUpperCase()}</div>
-        ))}
+        <Word
+          word={this.state.word}
+          inputLetters={this.state.inputLetters}
+        />
+        <Keyboard
+          inputLetters={inputLetters}
+          onClick={this.keyPressed}
+        />
       </div>
     );
   }
