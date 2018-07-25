@@ -3,16 +3,17 @@ import React, { Component } from 'react';
 class Uncontrolled extends Component {
 
     state = {
-
+      name:'',
+      lastName:''
     }
 
 
     handleSubmitButton = (e) => {
       e.preventDefault();
-      const value = {
+      this.setState({
         name:this.name.value,
         lastName:this.lastName.value
-      }
+      });
     }
 
     onshandler(e){
