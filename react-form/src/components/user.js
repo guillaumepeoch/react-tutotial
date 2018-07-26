@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormFields from './form_fields';
+import { firebaseDB } from '../firebase';
 
 class User extends Component {
 
@@ -68,7 +69,7 @@ class User extends Component {
       for(let key in this.state.formData){
           dataToSubmit[key]=this.state.formData[key].value
       }
-      console.log(dataToSubmit)
+      firebaseDB.ref('users').push(dataToSubmit);
     }
 
 
