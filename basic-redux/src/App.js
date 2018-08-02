@@ -3,12 +3,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // pass as the second argument in the connect function
 // so that we can have the actions avilable inside this.props
-import * as actions from './actions';
+// But it should always be 'dispached'
+import { moviesList } from './actions';
 
 class App extends Component {
 
   componentWillMount(){
-    this.props.moviesList();
+    this.props.getMovies();
   }
 
   renderMovies(movies){
@@ -39,7 +40,16 @@ const mapStateToProps = function(state){
   }
 }
 
+// Best Practice
+const mapDispatchToProps = function(dispatch){
+  return {
+    getMovies:function(){
+      dispatch(moviesList())
+    }
+  }
+}
+
 // 1 - connect the component App with Redux
 // First argument : mapStateToProps
 // Second argument : actions
-export default connect(mapStateToProps,actions)(App);
+export default connect(mapStateToProps,mapDispatchToProps)(App);
