@@ -22,6 +22,12 @@ export default function(prevState = {}, action){
           movies:action.payload
         };
       break;
+    case 'DIRECTORS_LIST':
+        return {
+          ...prevState,
+          directors:action.payload
+        };
+      break;
     default:
       return prevState
   }
