@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 // 1 - Need to wrappe the main app with the Provider
 import { Provider } from 'react-redux';
 // 2 - Need to create the store to apply it to the provider
@@ -8,13 +9,7 @@ import { createStore, applyMiddleware } from 'redux';
 // /!\ We don't need to specify the index file because it's called INDEX
 import reducers from './reducers'
 
-const App = function(){
-  return (
-    <div>
-      Hello
-    </div>
-  );
-}
+
 
 // create the function that binds the createStore with the middleware
 const createStoreWithMiddleware = applyMiddleware()(createStore)
