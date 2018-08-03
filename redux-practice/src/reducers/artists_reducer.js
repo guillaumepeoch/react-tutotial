@@ -6,6 +6,12 @@ export default function(prevState = {}, action){
           artists:action.payload
         }
       break;
+      case 'ARTIST':
+          return {
+            ...prevState,
+            artist:action.payload
+          }
+        break;
     default:
       return prevState;
   }
