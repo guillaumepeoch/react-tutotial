@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './containers/App';
 // 1 - Need to wrappe the main app with the Provider
 import { Provider } from 'react-redux';
 // 2 - Need to create the store to apply it to the provider

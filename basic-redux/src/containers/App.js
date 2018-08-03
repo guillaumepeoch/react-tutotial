@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 // pass as the second argument in the connect function
 // so that we can have the actions avilable inside this.props
 // But it should always be 'dispached'
-import { moviesList, directorsList } from './actions';
+import { moviesList, directorsList } from '../actions';
+import MoviesList from '../components/MoviesList';
 
 class App extends Component {
 
@@ -13,20 +14,12 @@ class App extends Component {
     this.props.getDirectors();
   }
 
-  renderMovies(movies){
-    return movies ?
-      movies.map(function(movie){
-        return (
-          <div key={movie.name}> { movie.name } </div>
-        );
-      }):null;
-  }
+
 
   render(){
-    console.log(this.props);
     return(
       <div>
-        {this.renderMovies(this.props.data.movies)}
+        <MoviesList movies={this.props.data.movies}/>
       </div>
     );
   }
