@@ -14,3 +14,16 @@ export function artistsList(){
   }
 
 }
+
+
+export function searchArtist(name){
+  const artistsRequest = axios.get(`${URL}/artists?q=${name}`)
+  .then(function(response){
+     return response.data
+  })
+
+  return {
+    type:'ARTISTS',
+    payload: artistsRequest
+  }
+}

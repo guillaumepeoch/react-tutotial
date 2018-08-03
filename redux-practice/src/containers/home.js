@@ -4,7 +4,7 @@ import Search from '../components/search';
 import Artistlist from '../components/artistlist';
 
 import { connect } from 'react-redux';
-import { artistsList } from '../actions';
+import { artistsList, searchArtist } from '../actions';
 
 class Home extends Component {
 
@@ -19,8 +19,8 @@ class Home extends Component {
 
     getKeywords = (event) => {
         let key = event.target.value;
-
         console.log(key)
+        this.props.searchArtist(key)
     }
 
     render(){
@@ -45,6 +45,9 @@ const mapDispatchToProps = function(dispatch){
   return {
     getArtists:function(){
       dispatch(artistsList())
+    },
+    searchArtist:function(key){
+      dispatch(searchArtist(key))
     }
   }
 }
